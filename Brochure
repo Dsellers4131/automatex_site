@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOMATEX Brochure</title>
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .brochure {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.5in;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        
+        button {
+            background-color: #0A513A;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        
+        /* Brochure specific styles */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #0A513A;
+        }
+        
+        .logo span {
+            color: #FF6347;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: #0A513A;
+        }
+        
+        .divider {
+            width: 100%;
+            border-top: 2px solid #0A513A;
+            margin-top: 16px;
+        }
+        
+        .impact-section {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            background-color: rgba(10, 81, 58, 0.2);
+        }
+        
+        .impact-heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #0A513A;
+            font-style: italic;
+        }
+        
+        .impact-subtext {
+            color: #0A513A;
+            font-style: italic;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #0A513A;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .portfolio-item {
+            background-color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .portfolio-item.primary-border {
+            border-left: 4px solid #0A513A;
+        }
+        
+        .portfolio-item.accent-border {
+            border-left: 4px solid #FF6347;
+        }
+        
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .portfolio-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0A513A;
+            margin: 0;
+        }
+        
+        .portfolio-savings {
+            font-weight: bold;
+            color: #FF6347;
+        }
+        
+        .portfolio-description {
+            font-size: 14px;
+            color: #4a5568;
+            margin: 0;
+        }
+        
+        .about-section {
+            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(10, 81, 58, 0.2);
+        }
+        
+        .about-text {
+            color: #0A513A;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+        
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .idea-item {
+            display: flex;
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .idea-number {
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .idea-number.primary {
+            background-color: #0A513A;
+        }
+        
+        .idea-number.accent {
+            background-color: #FF6347;
+        }
+        
+        .idea-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #0A513A;
+        }
+        
+        .idea-description {
+            font-size: 14px;
+            color: #4a5568;
+            margin: 0;
+        }
+        
+        .risk-free-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF6347;
+            margin-bottom: 24px;
+        }
+        
+        .risk-free-highlight {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #0A513A;
+        }
+        
+        .contact-section {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .icon {
+            margin-right: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            border-top: 2px solid #0A513A;
+            padding-top: 16px;
+        }
+        
+        .footer-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #0A513A;
+        }
+        
+        @media print {
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="generatePDF()">Download as PDF</button>
+        
+        <div id="brochure" class="brochure">
+            <!-- Header with Logo -->
+            <div class="header">
+                <img src="automatex-logo.png" alt="AUTOMATEX Logo" style="width: 400px; margin-bottom: 16px;">
+                <div class="divider"></div>
+            </div>
+            
+            <!-- Impact Hook Section -->
+            <div class="impact-section">
+                <h2 class="impact-heading">
+                    "I have saved companies a combined total of $3.7 MILLION through strategic automation solutions."
+                </h2>
+                <p class="impact-subtext">
+                    Transforming operational challenges into competitive advantages through intelligent automation
+                </p>
+            </div>
+            
+            <!-- Portfolio Section -->
+            <div>
+                <h2 class="section-title">PROJECT PORTFOLIO</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item primary-border">
+                        <div class="portfolio-header">
+                            <h3 class="portfolio-title">HEALTHCARE DIAGNOSTICS</h3>
+                            <span class="portfolio-savings">$1.2M SAVINGS</span>
+                        </div>
+                        <p class="portfolio-description">
+                            Automated critical processes for one of the nation's largest dermatopathology laboratories, accelerating diagnosis times by 68%.
+                        </p>
+                    </div>
+                    
+                    <div class="portfolio-item accent-border">
+                        <div class="portfolio-header">
+                            <h3 class="portfolio-title">MANUFACTURING LOGISTICS</h3>
+                            <span class="portfolio-savings">$950K SAVINGS</span>
+                        </div>
+                        <p class="portfolio-description">
+                            Streamlined order processing and inventory management, reducing processing time by 73% and virtually eliminating errors.
+                        </p>
+                    </div>
+                    
+                    <div class="portfolio-item accent-border">
+                        <div class="portfolio-header">
+                            <h3 class="portfolio-title">FINANCIAL SERVICES</h3>
+                            <span class="portfolio-savings">$630K SAVINGS</span>
+                        </div>
+                        <p class="portfolio-description">
+                            Automated compliance documentation and reporting, reducing manual effort by 85% and eliminating regulatory penalties.
+                        </p>
+                    </div>
+                    
+                    <div class="portfolio-item primary-border">
+                        <div class="portfolio-header">
+                            <h3 class="portfolio-title">RETAIL OPERATIONS</h3>
+                            <span class="portfolio-savings">$470K SAVINGS</span>
+                        </div>
+                        <p class="portfolio-description">
+                            Integrated disparate systems to create a unified customer view, increasing sales conversion by 22% and reducing data entry costs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Section -->
+            <div class="about-section">
+                <h2 class="section-title">ABOUT ME</h2>
+                <p class="about-text">
+                    I'm passionate about finding inefficiencies that others miss and creating elegant automation solutions that transform operations. With 8+ years in process optimization, I combine technical expertise with practical business acumen to deliver automation that creates lasting value.
+                </p>
+                <p class="about-text" style="margin-bottom: 0;">
+                    My approach is collaborative and transparent—I believe the best solutions emerge when we leverage both my technical knowledge and your team's operational expertise.
+                </p>
+            </div>
+            
+            <!-- Project Ideas Section -->
+            <div>
+                <h2 class="section-title">PROJECT IDEAS THAT DELIVER</h2>
+                <div class="ideas-grid">
+                    <div class="idea-item">
+                        <div class="idea-number primary">1</div>
+                        <div>
+                            <h3 class="idea-title">CROSS-PLATFORM DATA INTEGRATION</h3>
+                            <p class="idea-description">
+                                Connect your siloed systems to eliminate redundant data entry and create a single source of truth.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="idea-item">
+                        <div class="idea-number accent">2</div>
+                        <div>
+                            <h3 class="idea-title">WORKFLOW AUTOMATION ASSESSMENT</h3>
+                            <p class="idea-description">
+                                Identify your highest-impact automation opportunities through a comprehensive process analysis.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="idea-item">
+                        <div class="idea-number accent">3</div>
+                        <div>
+                            <h3 class="idea-title">CUSTOMER JOURNEY OPTIMIZATION</h3>
+                            <p class="idea-description">
+                                Automate key touchpoints in your customer experience to increase satisfaction while reducing costs.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="idea-item">
+                        <div class="idea-number primary">4</div>
+                        <div>
+                            <h3 class="idea-title">COMPLIANCE AUTOMATION FRAMEWORK</h3>
+                            <p class="idea-description">
+                                Develop systems that automatically maintain regulatory compliance, dramatically reducing risk.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk-Free Section -->
+            <div class="risk-free-section">
+                <h2 class="section-title">THE RISK-FREE ADVANTAGE</h2>
+                <p class="risk-free-highlight">
+                    Experience results before you commit to any investment.
+                </p>
+                <p style="color: #4a5568; margin-bottom: 8px;">
+                    I'll collaborate with your team to design and implement a tailored automation solution, maintain it for a full month with no obligation, and train your staff on its operation.
+                </p>
+                <p style="color: #4a5568; margin-bottom: 0;">
+                    Only after you've experienced the benefits firsthand will we jointly determine fair pricing based on demonstrated value. This approach ensures you never pay for automation that doesn't deliver measurable results.
+                </p>
+            </div>
+            
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <h2 class="section-title">READY TO TRANSFORM YOUR OPERATIONS?</h2>
+                <p style="color: #4a5568; margin-bottom: 16px;">
+                    Let's discuss how automation can address your specific challenges.
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
+                        </svg>
+                        <span style="color: #4a5568;">(555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span style="color: #4a5568;">solutions@automatex.com</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p class="footer-text">
+                    AUTOMATEX — The Formula for Operational Excellence
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('brochure');
+            const opt = {
+                margin: 0.5,
+                filename: 'AutomatexBrochure.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().from(element).set(opt).save();
+        }
+    </script>
+</body>
+</html>
